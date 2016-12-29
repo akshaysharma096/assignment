@@ -37,9 +37,9 @@ RSpec.shared_examples 'beer json api request spec' do
 
 end
 
-RSpec.describe "Beers", type: :request do
+RSpec.describe 'Beers', type: :request do
 
-  describe "GET /beers" do
+  describe 'GET /beers' do
 
     before do
       get v1_beers_path
@@ -49,7 +49,7 @@ RSpec.describe "Beers", type: :request do
 
   end
 
-  describe "GET /beers/:beer_type" do
+  describe 'GET /beers/:beer_type' do
 
     let (:beer) { create(:beer) }
 

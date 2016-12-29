@@ -26,6 +26,23 @@ RSpec.shared_examples 'beer json api controller spec' do
 
   end
 
+  context 'validate HTTP status codes' do
+
+    it { should respond_with(:success) }
+
+    it { should_not respond_with(:created) }
+
+    it { should_not respond_with(:redirect) }
+
+    it { should_not respond_with(:missing) }
+
+    it { should_not respond_with(:error) }
+  end
+
+end
+
+RSpec.shared_examples 'validate content_type' do
+
   context 'validate content_types' do
 
     it 'responds with content_type, application/json' do
@@ -46,20 +63,8 @@ RSpec.shared_examples 'beer json api controller spec' do
 
   end
 
-  context 'validate HTTP status codes' do
-
-    it { should respond_with(:success) }
-
-    it { should_not respond_with(:created) }
-
-    it { should_not respond_with(:redirect) }
-
-    it { should_not respond_with(:missing) }
-
-    it { should_not respond_with(:error) }
-  end
-
 end
+
 
 
 RSpec.describe V1::BeersController, type: :controller do
@@ -73,6 +78,7 @@ RSpec.describe V1::BeersController, type: :controller do
     end
 
     it_behaves_like 'beer json api controller spec'
+    it_behaves_like 'validate content_type'
 
   end
 
@@ -87,6 +93,7 @@ RSpec.describe V1::BeersController, type: :controller do
       end
 
       it_behaves_like 'beer json api controller spec'
+      it_behaves_like 'validate content_type'
 
     end
 
@@ -98,25 +105,11 @@ RSpec.describe V1::BeersController, type: :controller do
 
       it { should_not render_with_layout }
 
+      it_behaves_like 'validate content_type'
+
       it { should respond_with(:missing) }
 
       it { should_not respond_with(:success) }
-
-      it 'respond with content-type application/json' do
-        expect(response.content_type).to eq 'application/json'
-      end
-
-      it 'should not respond with content_type html' do
-        expect(response.content_type).not_to eq 'text/html'
-      end
-
-      it 'should not respond with content-type application/xml' do
-        expect(response.content_type).not_to eq 'application/xml'
-      end
-
-      it 'does not respond with content_type, application/xhtml+xml' do
-        expect(response.content_type).not_to eq 'application/xhtml+xml'
-      end
 
     end
   end
