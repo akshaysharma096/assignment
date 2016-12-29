@@ -18,6 +18,7 @@
 
 
 #ignore Ruby mine
+.idea/
 
 #ignore coverage data
 coverage
